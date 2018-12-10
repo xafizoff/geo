@@ -33,7 +33,7 @@ calc(Lat,Lon,Dist,MinLat,MaxLat) ->
                           false -> MaxLon
                       end,
             {{MinLat,MaxLat},{MinLon1,MaxLon1}};
-        false -> {max(MinLat,-pi()/2),min(MaxLat,pi()/2),-pi(),pi()}
+        false -> {{max(MinLat,-pi()/2),min(MaxLat,pi()/2)},{-pi(),pi()}}
     end.
 
 bounds(Loc,Dist) -> bounds(Loc,Dist,earthR()).
