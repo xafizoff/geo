@@ -11,8 +11,8 @@ deg2rad(Deg) -> Deg*pi()/180.
 rad2deg(Rad) -> Rad*180/pi().
 earthR() -> 6371.01.
 
-toDeg([#loc{lat=Lat,lon=Lon}|_]) -> #loc{lat=rad2deg(Lat),lon=rad2deg(Lon)}.
-fromDeg([#loc{lat=Lat,lon=Lon}|_]) -> #loc{lat=deg2rad(Lat),lon=deg2rad(Lon)}.
+toDeg(#loc{lat=Lat,lon=Lon}) -> #loc{lat=rad2deg(Lat),lon=rad2deg(Lon)}.
+fromDeg(#loc{lat=Lat,lon=Lon}) -> #loc{lat=deg2rad(Lat),lon=deg2rad(Lon)}.
 
 distance(From,To) -> distance(From,To,earthR()).
 distance(From,To,Rad) -> Rad * (math:acos(math:sin(From#loc.lat)*math:sin(To#loc.lat) +
