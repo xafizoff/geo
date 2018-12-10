@@ -10,7 +10,7 @@ deg2rad(Deg) -> Deg*pi()/180.
 rad2deg(Rad) -> Rad*180/pi().
 earthR() -> 6371.01.
 
-toDeg(#loc{lat=Lat,lon=Lon}) -> {rad2deg(Lat),rad2deg(Lon)}.
+toDeg(#loc{lat=Lat,lon=Lon}) -> #loc{lat=rad2deg(Lat),lon=rad2deg(Lon)}.
 fromDeg(#loc{lat=Lat,lon=Lon}) -> #loc{lat=deg2rad(Lat),lon=deg2rad(Lon)}.
 
 distance(From,To) -> distance(From,To,earthR()).
