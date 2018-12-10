@@ -2,6 +2,6 @@
  [{description, "Geolocation utilities"},
   {vsn, "0.12"},
   {registered, []},
-  {applications, [kernel,stdlib]},
+  {applications, [kernel,stdlib,mnesia]},
   {mod, { geo_sup, []}},
   {env, []} ]}.

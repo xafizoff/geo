@@ -1,9 +1,9 @@
 -module(geo).
+-export([deg2rad/1,rad2deg/1]).
 -export([fromDeg/1,toDeg/1,earthR/0]).
 -export([distance/2,distance/3]).
 -export([bounds/2,bounds/3]).
-
--record(loc,{lat,lon}).
+-include_lib("geo/include/geo.hrl").
 
 pi() -> math:pi().
 deg2rad(Deg) -> Deg*pi()/180.
