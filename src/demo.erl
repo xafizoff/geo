@@ -13,7 +13,7 @@ init() ->
     _Seed = rand:seed(exs1024s,{erlang:phash2([node()]),
                                 erlang:monotonic_time(),
                                 erlang:unique_integer()}),
-    F = fun () -> [case X of X ->
+    F = fun () -> [begin
                            Lon = math:pi()*rand:uniform(),
                            Lat = math:pi()*rand:uniform()/2,
                            mnesia:write(loc,#loc{id=X,name=X,lat=Lat,lon=Lon},write)
