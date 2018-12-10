@@ -1,0 +1,7 @@
+{application, geo,
+ [{description, "Geolocation utilities"},
+  {vsn, "0.12"},
+  {registered, []},
+  {applications, [kernel,stdlib]},
+  {mod, { geo_sup, []}},
+  {env, []} ]}.
