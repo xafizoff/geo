@@ -3,6 +3,7 @@
 -compile(export_all).
 
 init() ->
+    mnesia:change_table_copy_type(schema, node(), disc_copies),
     mnesia:create_schema([node()]),
     mnesia:start(),
     mnesia:create_table(loc,[{disc_copies,[node()]},
