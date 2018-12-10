@@ -16,7 +16,7 @@ init() ->
                            Lon = math:pi()*rand:uniform(),
                            Lat = math:pi()*rand:uniform()/2,
                            mnesia:write(loc,#loc{id=X,name=X,lat=Lat,lon=Lon},write)
-                   end || X <- lists:seq(1,1000)] end,
+                   end || X <- lists:seq(1,1000000)] end,
     mnesia:async_dirty(F).
 
 sqr(X) -> X*X.
