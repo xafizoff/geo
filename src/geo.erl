@@ -2,16 +2,17 @@
 -export([deg2rad/1,rad2deg/1]).
 -export([fromDeg/1,toDeg/1,earthR/0]).
 -export([distance/2,distance/3]).
--export([bounds/2,bounds/3]).
+-export([bounds/2,bounds/3,filter/3]).
 -include_lib("geo/include/geo.hrl").
+-include_lib("stdlib/include/qlc.hrl").
 
 pi() -> math:pi().
 deg2rad(Deg) -> Deg*pi()/180.
 rad2deg(Rad) -> Rad*180/pi().
 earthR() -> 6371.01.
 
-toDeg(#loc{lat=Lat,lon=Lon}) -> #loc{lat=rad2deg(Lat),lon=rad2deg(Lon)}.
-fromDeg(#loc{lat=Lat,lon=Lon}) -> #loc{lat=deg2rad(Lat),lon=deg2rad(Lon)}.
+toDeg([#loc{lat=Lat,lon=Lon}|_]) -> #loc{lat=rad2deg(Lat),lon=rad2deg(Lon)}.
+fromDeg([#loc{lat=Lat,lon=Lon}|_]) -> #loc{lat=deg2rad(Lat),lon=deg2rad(Lon)}.
 
 distance(From,To) -> distance(From,To,earthR()).
 distance(From,To,Rad) -> Rad * (math:acos(math:sin(From#loc.lat)*math:sin(To#loc.lat) +
@@ -42,3 +43,12 @@ bounds(Loc,Dist,Rad) ->
     {{Lat1,Lat2},{Lon1,Lon2}} = calc(Loc#loc.lat,Loc#loc.lon,Dist1,
                                      Loc#loc.lat-Dist1,Loc#loc.lat+Dist1),
     [#loc{lat=Lat1,lon=Lon1},#loc{lat=Lat2,lon=Lon2}].
+
+filter(Loc,Dist,Tab) ->
+    [Min,Max] = geo:bounds(Loc,Dist),
+    qlc:q([T||T<-Tab,
+              Min#loc.lat =< T#loc.lat,
+              Max#loc.lat >= T#loc.lat,
+              Min#loc.lon =< T#loc.lon,
+              Max#loc.lon >= T#loc.lon,
+              geo:distance(Loc,T) =< Dist]).
