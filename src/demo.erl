@@ -4,8 +4,8 @@
 
 init() ->
     mnesia:create_schema([node()]),
-    mnesia:create_table(loc,[{ram_copies,[node()]},
-                             {disc_copies,nodes()},
+    mnesia:start(),
+    mnesia:create_table(loc,[{disc_copies,[node()]},
                              {type,set},
                              {attributes,record_info(fields,loc)}]),
     %% mnesia:wait_for_tables([loc],infinity),
